@@ -1,0 +1,11 @@
+/dist/
+/node_modules/
+
+/eslint-results.xml
+/test-results.xml
+
+.DS_STORE
+.eslintcache
+.history
+*.tsbuildinfo
+*.jwk

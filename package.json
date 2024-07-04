@@ -1,0 +1,37 @@
+{
+  "name": "msb-custom-auth-script-example",
+  "version": "1.0.2",
+  "description": "example project for auth script development",
+  "author": {
+    "name": "mobisys GmbH",
+    "email": "info@mobisys.de",
+    "url": "https://mobisys.com"
+  },
+  "license": "MIT",
+  "private": true,
+  "prettier": {
+    "singleQuote": true
+  },
+  "engines": {
+    "node": ">=20.11.1",
+    "npm": ">=10.2.4"
+  },
+  "main": "script.js",
+  "scripts": {
+    "transpile": "rollup --config --silent",
+    "package": "ts-node --project scripts/tsconfig.json scripts/package.ts",
+    "build": "npm run transpile && npm run package"
+  },
+  "dependencies": {
+    "@mobisysgmbh/msb-custom-auth-api": "file:../msb-custom-auth-api"
+  },
+  "devDependencies": {
+    "@types/node": "20.12.7",
+    "fs-extra": "11.2.0",
+    "prettier": "3.3.2",
+    "rollup": "4.18.0",
+    "rollup-plugin-typescript2": "0.36.0",
+    "ts-node": "10.9.2",
+    "typescript": "5.4.5"
+  }
+}
