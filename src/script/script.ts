@@ -9,22 +9,20 @@ import type {
   CustomAuthVersionInfo,
 } from '@mobisysgmbh/msb-custom-auth-api';
 
-type LoginType = 'employee' | 'guest' | 'admin';
-
-interface Settings {
+interface CustomAuthSettings {
   hideCredentialInputs: boolean;
   user: string;
   password: string;
   someTimeout: string;
   allowReauthentication: boolean;
-  loginType: LoginType;
+  loginType: 'employee' | 'guest' | 'admin';
 }
 
 interface AuthenticationData {
   headers: Record<string, string>;
 }
 
-interface IUrlParams {
+interface UrlParams {
   host: string;
   port: number;
   service: string;
@@ -34,14 +32,14 @@ interface IUrlParams {
 }
 
 export default class CustomAuthenticationImpl implements CustomAuthentication {
-  private scriptSettings: ScriptSettings<Settings>;
+  private scriptSettings: ScriptSettings<CustomAuthSettings>;
   private http: CustomAuthHttpClient;
   private logger: CustomAuthLogger;
   private deviceInfo: CustomAuthDeviceInfo;
   private versionInfo: CustomAuthVersionInfo;
 
   constructor(
-    scriptSettings: ScriptSettings<Settings>,
+    scriptSettings: ScriptSettings<CustomAuthSettings>,
     customAuthApi: CustomAuthApi,
   ) {
     this.scriptSettings = scriptSettings;
@@ -99,8 +97,7 @@ export default class CustomAuthenticationImpl implements CustomAuthentication {
     });
 
     if (response.error !== undefined) {
-      console.log(response.error.message);
-      console.log(response.error);
+      throw new Error(`Login failed. Code: ${response.status}`);
     }
   }
 
@@ -153,26 +150,28 @@ export default class CustomAuthenticationImpl implements CustomAuthentication {
   }
 
   private async getVersionString(): Promise<string> {
+    const sapVersion = this.versionInfo.getSapVersion();
+
     if (await this.deviceInfo.isIPad()) {
-      return `IPADXX${this.versionInfo.getSapVersion()}`;
+      return `IPADXX${sapVersion}`;
     }
 
     if (await this.deviceInfo.isIOs()) {
-      return `IOSXXX${this.versionInfo.getSapVersion()}`;
+      return `IOSXXX${sapVersion}`;
     }
 
     if (await this.deviceInfo.isAndroid()) {
-      return `DROIDX${this.versionInfo.getSapVersion()}`;
+      return `DROIDX${sapVersion}`;
     }
 
     if (await this.deviceInfo.isElectron()) {
-      return `NODEXX${this.versionInfo.getSapVersion()}`;
+      return `NODEXX${sapVersion}`;
     }
 
-    return `XXXXXX${this.versionInfo.getSapVersion()}`;
+    return `XXXXXX${sapVersion}`;
   }
 
-  build(params: IUrlParams): string {
+  build(params: UrlParams): string {
     const service = params.service.startsWith('/')
       ? params.service.slice(1)
       : params.service;
