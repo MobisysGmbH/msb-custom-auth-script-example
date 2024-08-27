@@ -62,11 +62,11 @@
   };
 
   await fs.writeFile(
-    `./dist/${projectMetadata.name}.msbcustomauthscript`,
+    `./dist/msb-custom-auth-script.msbcustomauthscript`,
     JSON.stringify(scriptFileContent),
   );
   const scriptFileBuffer = await fs.readFile(
-    `./dist/${projectMetadata.name}.msbcustomauthscript`,
+    `./dist/msb-custom-auth-script.msbcustomauthscript`,
   );
 
   // calculate signature
@@ -90,7 +90,7 @@
 
   // write metadata
   await fs.writeFile(
-    path.join(distDir, `${projectMetadata.name}.msbcustomauthmetadata`),
+    path.join(distDir, `msb-custom-auth-script.msbcustomauthmetadata`),
     JSON.stringify(metadata, null, 2),
     'utf8',
   );

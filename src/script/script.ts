@@ -7,6 +7,7 @@ import type {
   ScriptSettings,
   CustomAuthDeviceInfo,
   CustomAuthVersionInfo,
+  AuthConfig,
 } from '@mobisysgmbh/msb-custom-auth-api';
 
 interface CustomAuthSettings {
@@ -50,7 +51,7 @@ export default class CustomAuthenticationImpl implements CustomAuthentication {
     this.versionInfo = customAuthApi.versionInfo;
   }
 
-  async login(profile: CustomAuthProfile): Promise<Record<string, string>> {
+  async login(profile: CustomAuthProfile): Promise<AuthConfig> {
     let user: string;
     let password: string;
 
@@ -75,7 +76,7 @@ export default class CustomAuthenticationImpl implements CustomAuthentication {
 
     await this.checkPassword(profile, authenticationData);
 
-    return authenticationData.headers;
+    return { headers: authenticationData.headers };
   }
 
   async logout(profile: CustomAuthProfile): Promise<void> {}
