@@ -23,7 +23,7 @@
     "build": "npm run transpile && npm run package"
   },
   "dependencies": {
-    "@mobisysgmbh/msb-custom-auth-api": "2.0.0"
+    "@mobisysgmbh/msb-custom-auth-api": "2.0.2"
   },
   "devDependencies": {
     "@types/node": "20.12.7",
