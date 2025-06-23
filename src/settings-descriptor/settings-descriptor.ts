@@ -8,4 +8,23 @@ export const descriptor: ScriptSettingsDescriptor = {
     defaultValue: true,
     uiType: 'Checkbox',
   },
+
+  scriptItems: [
+    {
+      key: 'pollingInterval',
+      description: 'Polling Intervall',
+      dataType: 'Number',
+      defaultValue: 5000,
+      uiType: 'Text',
+    },
+    {
+      key: 'authMethod',
+      description: 'Authentifizierungsmethode',
+      dataType: 'Enumeration',
+      enumValues: ['Basic', 'WebForm', 'ClientCert'],
+      defaultValue: 'WebForm',
+      uiType: 'Selection',
+      enumType: {},
+    },
+  ],
 };
