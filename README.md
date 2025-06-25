@@ -4,7 +4,6 @@ Example Project for development of custom authentication scripts for Mobisys MSB
 
 ## Build instructions
 
-0. Fork this repository since the repo name will be the script name
 1. Install node >=20.11.1
 2. Install dependencies `npm i`
 3. Run build script `npm run build`
